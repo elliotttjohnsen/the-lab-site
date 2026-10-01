@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Lab — GTA VI companion</title>
+<meta name="description" content="The Lab is an unofficial fan companion for Grand Theft Auto VI: the launch countdown, what is actually known about the game, GTA 6 Shorts, heist payouts, and an assistant that says when it does not know.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Saira+Condensed:wght@600;700&family=Saira:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="The Lab — GTA VI companion">
+<meta property="og:description" content="The countdown, the dossier, the Shorts and the heists. Every number labelled with how sure we are.">
+<meta property="og:type" content="website">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="The Lab home">
+      <span class="brand-mark" aria-hidden="true">LAB</span>
+      <span class="brand-name">The Lab</span>
+    </a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="community-guidelines.html">Guidelines</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Leonida · Vice City · 19 November 2026</span>
+      <h1>The companion app for <em>GTA VI</em>, built to say how sure it is.</h1>
+      <p class="lead">A countdown you can set a reminder on. A dossier of what is actually confirmed about the game, separated from what is rumoured. GTA 6 Shorts from across YouTube. GTA Online heists ranked by payout per hour. And an assistant that labels every number it gives you.</p>
+
+      <div class="countdown" id="countdown" aria-live="polite" aria-label="Time until GTA VI launches">
+        <div><b id="cd-days">—</b><span>days</span></div>
+        <div><b id="cd-hours">—</b><span>hrs</span></div>
+        <div><b id="cd-mins">—</b><span>min</span></div>
+        <div><b id="cd-secs">—</b><span>sec</span></div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="support.html#get-the-app">Get the app</a>
+        <a class="btn secondary" href="support.html">Help &amp; contact</a>
+        <span class="cta-note">iPhone. On TestFlight now, App Store next.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap features" aria-label="What is inside">
+    <article class="feature">
+      <span class="eyebrow">The run-up</span>
+      <h2>Countdown and dossier</h2>
+      <p>Release date, pre-orders, the trailers, what the storefronts have said and what they have not. One optional daily reminder, scheduled on your phone, off by default.</p>
+    </article>
+    <article class="feature">
+      <span class="eyebrow">Something to watch</span>
+      <h2>GTA 6 Shorts and news</h2>
+      <p>A feed of Shorts about the game from all of YouTube, played through YouTube's own player. Rockstar's announcements as they land, with the source linked.</p>
+    </article>
+    <article class="feature">
+      <span class="eyebrow">Until then</span>
+      <h2>Heists, ranked honestly</h2>
+      <p>GTA Online heists by payout per hour, setup cost and crew size — with the figures labelled as community-reported, estimated or verified, so you know which ones to trust.</p>
+    </article>
+  </section>
+
+  <section class="wrap labels" aria-labelledby="labels-h">
+    <span class="eyebrow">The rule the whole app runs on</span>
+    <h2 id="labels-h">Every number carries a label.</h2>
+    <p>GTA VI is not out yet, so almost everything anyone says about it is a guess of some kind. The Lab does not hide that. A figure is either confirmed by Rockstar, reported by the community and cross-checked, estimated from a formula we can show you, projected by the assistant, or unverified — and it says which. The assistant is told never to state an unlabelled number as fact, and it will tell you when it does not know.</p>
+    <div class="label-row" aria-label="The five labels">
+      <span class="label verified">VERIFIED</span>
+      <span class="label community">COMMUNITY REPORTED</span>
+      <span class="label estimated">ESTIMATED</span>
+      <span class="label projection">AI PROJECTION</span>
+      <span class="label unverified">UNVERIFIED</span>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="community-guidelines.html">Community Guidelines</a>
+      <a href="support.html">Support</a>
+    </nav>
+    <p class="disclaimer">The Lab is an unofficial fan companion. It is not affiliated with, endorsed by or sponsored by Rockstar Games or Take-Two Interactive. Grand Theft Auto and related names and images belong to their owners.</p>
+    <p>© 2026 The Lab.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Same instant the app counts down to: apps/mobile/lib/gta6.ts.
+  var target = Date.parse("2026-11-19T05:00:00Z");
+  var el = {
+    d: document.getElementById("cd-days"),
+    h: document.getElementById("cd-hours"),
+    m: document.getElementById("cd-mins"),
+    s: document.getElementById("cd-secs")
+  };
+  function pad(n, w) { n = String(n); while (n.length < w) n = "0" + n; return n; }
+  function tick() {
+    var left = Math.max(0, target - Date.now());
+    var s = Math.floor(left / 1000);
+    el.d.textContent = pad(Math.floor(s / 86400), 3);
+    el.h.textContent = pad(Math.floor(s % 86400 / 3600), 2);
+    el.m.textContent = pad(Math.floor(s % 3600 / 60), 2);
+    el.s.textContent = pad(s % 60, 2);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
